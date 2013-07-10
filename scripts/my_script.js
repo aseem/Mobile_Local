@@ -149,7 +149,8 @@ function updateLocation(data) {
 	
 	// if we did not get any results, throw an error
 	if (data.status === "ZERO_RESULTS") {
-    	alert('We were not able to locate your input on the map.');
+		console.log(data);
+    	alert('BOOM: We were not able to locate your input on the map.');
     	return;
 	}
 
@@ -232,6 +233,12 @@ function getLocalWeather(city, state) {
 		$('#weather-temp').empty();
 		$('#weather-hilo').empty();
 		
+		// if we couldn't get any weather data, display an error
+		if (data.query.results.weather.rss.channel.item.title == "City not found") {
+			alert("We could not find weather information for your query");
+			return;
+		}
+		
 		// parse the Yahoo! Weather service object to get the current day's info
 		var currentInfo = data.query.results.weather.rss.channel.item.condition;
 		var forecastInfo = data.query.results.weather.rss.channel.item.forecast
@@ -239,12 +246,6 @@ function getLocalWeather(city, state) {
 		// update the background based on the foreacast code and determine the 
 		// correct icon image to use.
 		var img_src = "images/" + translateYahooWeather(forecastInfo[0].code) + ".png";
-		
-		// if we couldn't get any weather data, display an error
-		if (currentInfo === undefined) {
-			$('#weather-temp').append("<span></span>");
-			$('#weather-hilo').append("<span>Weather unavailable for location</span>");
-		}
 		
 		// udpate the DOM to display the weather.
 		$('#weather-icon').append("<image src=" + img_src + ">");
@@ -290,12 +291,6 @@ $("#form-location").on('submit', function() {
  	return false;
 });
 
-// Handler when the user selects the "current location" button
-// This iniates a geo-location request using the current position
-$("#geolocate-button").on('click', function() {
-	
-	geoLocate();
-});
 
 // Handler for the previous search history.  This iniates a form request
 // for the selected history item

@@ -16,7 +16,7 @@
 }
 
 .storm {
-    background: url('../images/storm_hi_res.jpg') no-repeat center center fixed;
+    background: url('../images/lightning_hi_res.jpg') no-repeat center center fixed;
 }
 
 .sunny{
@@ -24,7 +24,7 @@
 }
 
 .snow {
-    background: url('../images/snow.png') no-repeat center center fixed;
+    background: url('../images/snow.jpg') no-repeat center center fixed;
 }
 
 .cloudy {
